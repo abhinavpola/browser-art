@@ -1,7 +1,6 @@
 # BrowserART
 
-[!NOTE]
-Unofficial updated score for gpt-4o: 57/95 (38 refusals, 5 tasks didn't run)
+[!NOTE] Unofficial updated score for gpt-4o: 57/95 (38 refusals, 5 tasks didn't run)
 
 This is the code space for [Refusal-Trained LLMs Are Easily Jailbroken As Browser Agents](https://static.scale.com/uploads/6691558a94899f2f65a87a75/browser_art_draft_preview.pdf).
 
