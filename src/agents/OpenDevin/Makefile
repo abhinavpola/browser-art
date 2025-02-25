@@ -41,7 +41,7 @@ check-dependencies:
 ifeq ($(INSTALL_DOCKER),)
 	@$(MAKE) -s check-docker
 endif
-	@$(MAKE) -s check-poetry
+	# @$(MAKE) -s check-poetry
 	@echo "$(GREEN)Dependencies checked successfully.$(RESET)"
 
 check-system:

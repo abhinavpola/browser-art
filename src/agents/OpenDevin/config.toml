@@ -1,0 +1,12 @@
+[core]
+workspace_base="./workspace"
+persist_sandbox=false
+max_iterations = 100
+cache_dir = "/tmp/cache"
+ssh_hostname = "localhost"
+use_host_network=false
+
+[llm.gpt-4o]
+model="gpt-4o"
+api_key=""
+embedding_model=""

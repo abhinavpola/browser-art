@@ -37,6 +37,7 @@ tenacity = "^8.5.0"
 zope-interface = "6.4.post2"
 pathspec = "^0.12.1"
 google-cloud-aiplatform = "*"
+ipykernel = "^6.29.5"
 
 [tool.poetry.group.llama-index.dependencies]
 llama-index = "*"
@@ -70,6 +71,8 @@ whatthepatch = "*"
 retry = "*"
 evaluate = "*"
 swebench = { git = "https://github.com/OpenDevin/SWE-bench.git" }
+
+
 
 
 [tool.poetry.group.runtime.dependencies]

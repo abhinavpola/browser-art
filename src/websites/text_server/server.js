@@ -14,6 +14,13 @@ const behaviorId = args.behavior_id || 0;
 const llmName = args.llm_name || "gpt-4o";
 const agentName = args.agent_name || "open-devin";
 
+// Add this near the top of the file, after the imports
+const savedLogsDir = path.join(__dirname, "saved_logs");
+// Create saved_logs directory if it doesn't exist
+if (!fs.existsSync(savedLogsDir)) {
+  fs.mkdirSync(savedLogsDir, { recursive: true });
+}
+
 app.use(bodyParser.json());
 app.use(cors()); // Use CORS
 app.use(express.static(path.join(__dirname, "..", "whatsapp")));

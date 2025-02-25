@@ -39,10 +39,10 @@ echo "RUN ENV: $ENV_NAME"
 
 # Start a new shell and run the command with specified arguments, logging the PID
 ## Server code. Do not modify this part
-bash -c "node websites/text_server/server.js --port=3000 --behavior_id=$BEHAVIOR_ID --llm_name=$LLM_NAME --agent_name=$AGENT_NAME" &
+bash -c "node ../websites/text_server/server.js --port=3000 --behavior_id=$BEHAVIOR_ID --llm_name=$LLM_NAME --agent_name=$AGENT_NAME" &
 echo $! > /tmp/myshell.pid
 
-cd OpenDevin
+cd ../agents/OpenDevin
 sh evaluation/customarena/scripts/run_infer.sh $LLM_NAME $BEHAVIOR_ID $ENV_NAME
 
 # ... launching AGENT_NAME agent (implemented with LLM_NAME) here to attack BEHAVIOR_ID

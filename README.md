@@ -1,8 +1,9 @@
 # BrowserART
+## Unofficial updated score for gpt-4o: 57/95 (38 refusals, 5 tasks didn't run)
 
 This is the code space for [Refusal-Trained LLMs Are Easily Jailbroken As Browser Agents](https://static.scale.com/uploads/6691558a94899f2f65a87a75/browser_art_draft_preview.pdf).
 
-BrowserART is a comprehensive test suite and toolkit for red-teaming and evaluating LLM browser agents. 
+BrowserART is a comprehensive test suite and toolkit for red-teaming and evaluating LLM browser agents.
 
 ## Table of Contents
 
@@ -21,9 +22,9 @@ Therefore, simply ensuring LLMs refuse to harmful instructions in chats is not s
 ![](main_figure.png)
 
 
-## Behavior Dataset 
+## Behavior Dataset
 
-Our behavior dataset is in `/datasets/behaviors`. If you are looking into a CSV version of the dataset, please visit our [Huggingface page](https://huggingface.co/datasets/ScaleAI/BrowserART). 
+Our behavior dataset is in `/datasets/behaviors`. If you are looking into a CSV version of the dataset, please visit our [Huggingface page](https://huggingface.co/datasets/ScaleAI/BrowserART).
 
 ![](pie_chart.png)
 
