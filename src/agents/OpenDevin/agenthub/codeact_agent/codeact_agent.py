@@ -204,7 +204,6 @@ class CodeActAgent(Agent):
                 '</execute_bash>',
                 '</execute_browse>',
             ],
-            temperature=0.0,
         )
         return self.action_parser.parse(response)
 

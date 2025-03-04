@@ -209,7 +209,6 @@ class BrowsingAgent(Agent):
         logger.debug(prompt)
         response = self.llm.completion(
             messages=messages,
-            temperature=0.0,
             stop=[')```', ')\n```'],
         )
         return self.response_parser.parse(response)

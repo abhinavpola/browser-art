@@ -75,14 +75,12 @@ class ChatModelArgs:
             _, model_name = self.model_name.split("/")
             return ChatOpenAI(
                 model_name=model_name,
-                temperature=self.temperature,
                 max_tokens=self.max_new_tokens,
             )
         else:
             return HuggingFaceChatModel(
                 model_name=self.model_name,
                 hf_hosted=self.hf_hosted,
-                temperature=self.temperature,
                 max_new_tokens=self.max_new_tokens,
                 max_total_tokens=self.max_total_tokens,
                 max_input_tokens=self.max_input_tokens,
@@ -193,7 +191,7 @@ class HuggingFaceChatModel(SimpleChatModel):
             logging.info("Loading the LLM from a URL")
             client = InferenceClient(model=model_url, token=eai_token)
             self.llm = partial(
-                client.text_generation, temperature=temperature, max_new_tokens=max_new_tokens
+                client.text_generation, max_new_tokens=max_new_tokens
             )
         elif hf_hosted:
             logging.info("Serving the LLM on HuggingFace Hub")

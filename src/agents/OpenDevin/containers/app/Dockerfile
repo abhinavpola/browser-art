@@ -65,7 +65,7 @@ RUN playwright install --with-deps chromium
 
 COPY --chown=opendevin:app --chmod=770 ./opendevin ./opendevin
 COPY --chown=opendevin:app --chmod=777 ./opendevin/runtime/plugins ./opendevin/runtime/plugins
-COPY --chown=opendevin:app --chmod=770 ./agenthub ./agenthub
+# COPY --chown=opendevin:app --chmod=770 ./agenthub ./agenthub
 
 RUN python opendevin/core/download.py # No-op to download assets
 RUN chown -R opendevin:app /app/logs && chmod -R 770 /app/logs # This gets created by the download.py script

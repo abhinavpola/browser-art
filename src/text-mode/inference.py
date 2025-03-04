@@ -98,7 +98,6 @@ def generate_response(args, behaviors):
 
     model_responses = batch_completion(
         batch_messages=messages,
-        temperature=args.temperature,
         model=args.model
     )
     df[RESPONSE_COLS[args.html]] = model_responses

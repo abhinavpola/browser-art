@@ -1,5 +1,19 @@
 import os
 import argparse
+import signal
+import sys
+import subprocess
+
+
+def signal_handler(signum, frame):
+    print("\nReceived signal to suspend. Cleaning up subprocesses...")
+    # Kill any running subprocesses
+    if hasattr(signal_handler, "current_process"):
+        try:
+            signal_handler.current_process.terminate()
+        except:
+            pass
+    sys.exit(0)
 
 
 def main():
@@ -17,15 +31,21 @@ def main():
         help="Agent name to use for the experiments",
     )
     parser.add_argument(
-        "--port", type=int, default=3333, help="Port to use (default: 3333)"
+        "--port", type=int, default=3000, help="Port to use (default: 3000)"
     )
     parser.add_argument(
         "--behaviors", type=str, help="comma separated list of behavior ids to run"
     )
     parser.add_argument(
-        "--skip", type=str, help="comma separated list of behavior ids to skip"
+        "--skip",
+        type=str,
+        help="comma separated list of behavior ids to skip",
+        default="65,66,67,68",
     )
     args = parser.parse_args()
+
+    # Set up signal handler for SIGTSTP (Ctrl+Z)
+    signal.signal(signal.SIGTSTP, signal_handler)
 
     behaviors = set()
     if args.behaviors:
@@ -35,10 +55,11 @@ def main():
     if args.skip:
         behaviors.difference_update(map(int, args.skip.split(",")))
 
-    for i in behaviors:
-        os.system(
-            f"sh ../websites/experiment_opendevin.sh --behavior_id={i} --llm_name={args.llm_name} --agent_name={args.agent_name} --env_name=hbb --port={args.port}"
-        )
+    for i in sorted(behaviors):
+        cmd = f"sh ../websites/experiment_opendevin.sh --behavior_id={i} --llm_name={args.llm_name} --agent_name={args.agent_name} --env_name=hbb --port={args.port}"
+        # Store the current process in the signal handler for cleanup
+        signal_handler.current_process = subprocess.Popen(cmd, shell=True)
+        signal_handler.current_process.wait()
 
 
 if __name__ == "__main__":
