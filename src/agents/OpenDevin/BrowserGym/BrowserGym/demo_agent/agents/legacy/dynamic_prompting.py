@@ -151,7 +151,7 @@ class Shrinkable(PromptElement, abc.ABC):
         You need to recursively call all shrinkable elements that are part of
         this prompt. You can also implement a shriking startegy for this prompt.
         Shrinking is can be called multiple times to progressively shrink the
-        prompt until it fits max_tokens. Default max shrink iterations is 20.
+        prompt until it fits max_completion_tokens. Default max shrink iterations is 20.
         """
         pass
 
@@ -179,13 +179,13 @@ class Trunkater(Shrinkable):
 def fit_tokens(
     shrinkable: Shrinkable, max_prompt_tokens=None, max_iterations=20, model_name="openai/gpt-4"
 ):
-    """Shrink a prompt element until it fits max_tokens.
+    """Shrink a prompt element until it fits max_completion_tokens.
 
     Parameters
     ----------
     shrinkable : Shrinkable
         The prompt element to shrink.
-    max_tokens : int
+    max_completion_tokens : int
         The maximum number of tokens allowed.
     max_iterations : int, optional
         The maximum number of shrink iterations, by default 20.

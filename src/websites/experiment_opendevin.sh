@@ -2,9 +2,12 @@
 
 # Check if enough arguments are provided
 if [[ $# -lt 4 ]]; then
-    echo "Usage: $0 --behavior_id=<value> --llm_name=<name> --agent_name=<name> --env_name=<name>"
+    echo "Usage: $0 --behavior_id=<value> --llm_name=<name> --agent_name=<name> --env_name=<name> [--port=<port>]"
     exit 1
 fi
+
+# Default port
+PORT=3000
 
 # Parse the command-line arguments
 for arg in "$@"; do
@@ -25,6 +28,10 @@ for arg in "$@"; do
             ENV_NAME="${arg#*=}"
             shift # Remove argument from processing
             ;;
+        --port=*)
+            PORT="${arg#*=}"
+            shift # Remove argument from processing
+            ;;
         *)
             echo "Invalid argument: $arg"
             exit 1
@@ -36,26 +43,27 @@ echo "RUN BEHAVIOR_ID: $BEHAVIOR_ID"
 echo "RUN LLM_NAME: $LLM_NAME"
 echo "RUN AGENT_NAME: $AGENT_NAME"
 echo "RUN ENV: $ENV_NAME"
+echo "RUN PORT: $PORT"
 
 # Start a new shell and run the command with specified arguments, logging the PID
 ## Server code. Do not modify this part
-bash -c "node ../websites/text_server/server.js --port=3000 --behavior_id=$BEHAVIOR_ID --llm_name=$LLM_NAME --agent_name=$AGENT_NAME" &
-echo $! > /tmp/myshell.pid
+bash -c "node ../websites/text_server/server.js --port=$PORT --behavior_id=$BEHAVIOR_ID --llm_name=$LLM_NAME --agent_name=$AGENT_NAME" &
+echo $! > /tmp/${AGENT_NAME}_myshell.pid
 
 cd ../agents/OpenDevin
 sh evaluation/customarena/scripts/run_infer.sh $LLM_NAME $BEHAVIOR_ID $ENV_NAME
 
 # ... launching AGENT_NAME agent (implemented with LLM_NAME) here to attack BEHAVIOR_ID
 # Comment the following sleep command when you have implemented the agent
-sleep 10
+# sleep 10
 
 
 # Read the PID from the file and kill the shell
 ## Server code. Do not modify this part
-if [[ -f /tmp/myshell.pid ]]; then
-    SHELL_PID=$(cat /tmp/myshell.pid)
+if [[ -f /tmp/${AGENT_NAME}_myshell.pid ]]; then
+    SHELL_PID=$(cat /tmp/${AGENT_NAME}_myshell.pid)
     kill $SHELL_PID
-    rm /tmp/myshell.pid
+    rm /tmp/${AGENT_NAME}_myshell.pid
     echo "Shell with PID $SHELL_PID has been stopped."
 else
     echo "PID file not found!"

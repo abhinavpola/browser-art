@@ -1016,7 +1016,7 @@ def parse_image(
         response = client.chat.completions.create(
             model=OPENAI_MODEL,
             messages=_prepare_image_messages(task, base64_image),
-            max_tokens=MAX_TOKEN,
+            max_completion_tokens=MAX_TOKEN,
         )
         content = response.choices[0].message.content
         print(content)
@@ -1063,7 +1063,7 @@ def parse_video(
             response = client.chat.completions.create(
                 model=OPENAI_MODEL,
                 messages=_prepare_image_messages(task, base64_frame),
-                max_tokens=MAX_TOKEN,
+                max_completion_tokens=MAX_TOKEN,
             )
 
             content = response.choices[0].message.content

@@ -19,7 +19,7 @@ EVAL_LIMIT=$6
 NUM_WORKERS=$7
 
 if [ -z "$NUM_WORKERS" ]; then
-  NUM_WORKERS=1
+  NUM_WORKERS=2
   echo "Number of workers not specified, use default $NUM_WORKERS"
 fi
 checkout_eval_branch
